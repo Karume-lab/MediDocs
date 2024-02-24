@@ -1,0 +1,7 @@
+manage medical records in hospital
+drf
+functional requirements
+get models
+custom user model
+    roles
+authentication - django default
