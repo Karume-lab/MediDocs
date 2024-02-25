@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/5.0/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.0/ref/settings/
 """
+
 import datetime
 from pathlib import Path
 
@@ -39,6 +40,10 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "accounts.apps.AccountsConfig",
+    "doctors.apps.DoctorsConfig",
+    "labs.apps.LabsConfig",
+    "nurses.apps.NursesConfig",
+    "medical_records.apps.MedicalRecordsConfig",
 ]
 
 MIDDLEWARE = [
@@ -125,9 +130,9 @@ STATIC_URL = "static/"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
-AUTH_PROFILE_MODULE = 'accounts.CustomUser'
+AUTH_PROFILE_MODULE = "accounts.CustomUser"
 
-AUTH_USER_MODEL = 'accounts.CustomUser'
+AUTH_USER_MODEL = "accounts.CustomUser"
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": datetime.timedelta(days=1),
@@ -143,4 +148,3 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ],
 }
-

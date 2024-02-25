@@ -1,11 +1,10 @@
-# myapp/views.py
 from django.contrib.auth import authenticate, login, logout
 from rest_framework import status, viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from accounts.forms import UserLoginForm
-from .utils import get_tokens_for_user
+from utils.tokens import get_tokens_for_user
 from .serializers import RegistrationSerializer, PasswordChangeSerializer
 
 
