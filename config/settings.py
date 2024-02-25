@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "doctors.apps.DoctorsConfig",
     "labs.apps.LabsConfig",
     "nurses.apps.NursesConfig",
+    "patients.apps.PatientsConfig",
     "medical_records.apps.MedicalRecordsConfig",
 ]
 

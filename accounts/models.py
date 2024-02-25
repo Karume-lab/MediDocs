@@ -1,38 +1,9 @@
+# Create your models here
 from django.contrib.auth.base_user import AbstractBaseUser
 from django.db import models
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import AbstractBaseUser
 from phonenumber_field.formfields import PhoneNumberField
-
-# Create your models here
-class CustomUserManager(BaseUserManager):
-    def create_user(self, email, first_name, last_name, password=None):
-        """
-        Creates and saves a User with the given email and password.
-        """
-        if not email:
-            raise ValueError("Users must have an email address")
-
-        user = self.model(
-            email=self.normalize_email(email),
-            first_name=first_name,
-            last_name=last_name,
-        )
-
-        user.set_password(password)
-        user.save(using=self._db)
-        return user
-
-    def create_superuser(self, email, password=None):
-        """
-        Creates and saves a superuser with the given email and password.
-        """
-        user = self.create_user(
-            email,
-            password=password,
-        )
-        user.is_admin = True
-        user.save(using=self._db)
-        return user
+from accounts.managers import CustomUserManager
 
 
 class CustomUser(AbstractBaseUser):
@@ -42,14 +13,15 @@ class CustomUser(AbstractBaseUser):
     )
     first_name = models.CharField(max_length=50)
     last_name = models.CharField(max_length=50)
+    date_joined = models.DateTimeField(auto_now_add=True)
     phone_number = PhoneNumberField(region="KE")
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
     objects = CustomUserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["first_name", "last_name", "phone_number"]
-    
+    REQUIRED_FIELDS = ("first_name", "last_name", "password")
+
     class Meta:
         verbose_name = "User"
         verbose_name_plural = "Users"
@@ -72,3 +44,7 @@ class CustomUser(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+    @is_staff.setter
+    def is_staff(self, value):
+        self._is_staff = value
