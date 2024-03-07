@@ -5,3 +5,22 @@ get models
 custom user model
     roles
 authentication - django default
+
+
+models
+hospital
+patient
+medical_record
+    id
+    created at
+    name
+    description
+
+user
+
+
+problem statement
+use cases
+functional reqs
+erd
+8
