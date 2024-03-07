@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "phonenumber_field",
     "accounts.apps.AccountsConfig",
     "profiles.apps.ProfilesConfig",
+    "medical_records.apps.MedicalRecordsConfig",
 ]
 
 MIDDLEWARE = [
