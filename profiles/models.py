@@ -1,0 +1,96 @@
+from django.db import models
+from django.utils.translation import gettext_lazy as _
+from phonenumber_field.modelfields import PhoneNumberField
+
+
+class HospitalProfile(models.Model):
+    owner = models.ForeignKey(
+        "accounts.CustomUser",
+        verbose_name=_("Hospital Owner"),
+        related_name="hospital",
+        on_delete=models.CASCADE,
+    )
+    name = models.CharField(_("Hospital Name"), max_length=50)
+    createdAt = models.DateTimeField(
+        _("Date the hospital was added "), auto_now_add=True
+    )
+    updatedAt = models.DateTimeField(
+        _("Date the hospital details were updated "), auto_now=True
+    )
+    email = models.EmailField(_("Email address"), max_length=254)
+    phone_number = PhoneNumberField(region="KE")
+    location = models.OneToOneField(
+        "profiles.Location",
+        verbose_name=_("Location of the hospital"),
+        related_name="hospital",
+        on_delete=models.CASCADE,
+    )
+    services = models.ForeignKey(
+        "profiles.HospitalProfile",
+        verbose_name=_("Services offered"),
+        related_name="hospital",
+        on_delete=models.CASCADE,
+    )
+
+    def __str__(self) -> str:
+        return f"{self.name} - {self.location}"
+
+
+class PatientProfile(models.Model):
+    owner = models.OneToOneField(
+        "accounts.CustomUser",
+        verbose_name=_("Patient Owner"),
+        related_name="patient",
+        on_delete=models.CASCADE,
+    )
+    first_name = models.CharField(_("First Name"), max_length=50)
+    last_name = models.CharField(_("Last Name"), max_length=50)
+    date_of_birth = models.DateField(_("Date of Birth"))
+    phone_number = PhoneNumberField(region="KE")
+    email = models.EmailField(_("Email address"), max_length=254)
+    location = models.OneToOneField(
+        "profiles.Location",
+        verbose_name=_("Location of the patient"),
+        related_name="patient",
+        on_delete=models.CASCADE,
+    )
+    createdAt = models.DateTimeField(
+        _("Date the patient was added "), auto_now_add=True
+    )
+    updatedAt = models.DateTimeField(
+        _("Date the patient details were updated "), auto_now=True
+    )
+
+    def __str__(self) -> str:
+        return f"{self.first_name} {self.last_name}"
+
+
+class HospitalService(models.Model):
+    CATEGORY_CHOICES = [
+        ("diagnostic", "Diagnostic"),
+        ("surgical", "Surgical"),
+        ("therapeutic", "Therapeutic"),
+        ("preventive", "Preventive"),
+        ("emergency", "Emergency"),
+        ("maternity", "Maternity"),
+        ("rehabilitation", "Rehabilitation"),
+    ]
+
+    name = models.CharField(max_length=255)
+    description = models.TextField()
+    category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
+    price = models.DecimalField(max_digits=10, decimal_places=2)
+    availability = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.name
+
+
+class Location(models.Model):
+    name = models.CharField(max_length=255)
+    address = models.TextField()
+    latitude = models.DecimalField(max_digits=9, decimal_places=6)
+    longitude = models.DecimalField(max_digits=9, decimal_places=6)
+
+    def __str__(self):
+        return self.name

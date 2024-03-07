@@ -1,11 +1,10 @@
-from django.urls import path
-from .views import CustomUserListCreateView, CustomUserRetrieveUpdateDestroyView
+from django.urls import include, path
+from rest_framework import routers
+from . import views
+
+router = routers.DefaultRouter()
+router.register(r"", views.UserViewSet)
 
 urlpatterns = [
-    path("", CustomUserListCreateView.as_view(), name="user-list-create"),
-    path(
-        "<int:pk>/",
-        CustomUserRetrieveUpdateDestroyView.as_view(),
-        name="user-retrieve-update-destroy",
-    ),
+    path("", include(router.urls)),
 ]

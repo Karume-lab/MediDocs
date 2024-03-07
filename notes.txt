@@ -3,24 +3,26 @@ drf
 functional requirements
 get models
 custom user model
-    roles
+roles
 authentication - django default
-
 
 models
 hospital
 patient
 medical_record
-    id
-    created at
-    name
-    description
+id
+created at
+name
+description
 
 user
-
 
 problem statement
 use cases
 functional reqs
 erd
 8
+
+add more fields to the custom user model
+use hyperlinked model serializer
+
