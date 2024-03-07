@@ -4,5 +4,5 @@ from . import serializers
 
 
 class MedicalRecordViewSet(viewsets.ModelViewSet):
-    queryset = models.MedicalRecord.objects.all()
+    queryset = models.MedicalRecord.objects.all().order_by("id")
     serializer_class = serializers.MedicalRecordSerializer

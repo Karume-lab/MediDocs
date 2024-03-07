@@ -4,7 +4,7 @@ from . import serializers
 
 
 class HospitalProfileViewSet(viewsets.ModelViewSet):
-    queryset = models.HospitalProfile.objects.all()
+    queryset = models.HospitalProfile.objects.all().order_by("id")
     serializer_class = serializers.HospitalProfile
 
     def perform_create(self, serializer):
@@ -12,16 +12,15 @@ class HospitalProfileViewSet(viewsets.ModelViewSet):
 
 
 class PatientProfileViewSet(viewsets.ModelViewSet):
-    queryset = models.PatientProfile.objects.all()
+    queryset = models.PatientProfile.objects.all().order_by("id")
     serializer_class = serializers.PatientProfile
 
 
 class LocationViewSet(viewsets.ModelViewSet):
-    queryset = models.Location.objects.all()
+    queryset = models.Location.objects.all().order_by("id")
     serializer_class = serializers.Location
 
 
 class HospitalServiceViewSet(viewsets.ModelViewSet):
-    queryset = models.HospitalService.objects.all()
+    queryset = models.HospitalService.objects.all().order_by("id")
     serializer_class = serializers.HospitalService
-
