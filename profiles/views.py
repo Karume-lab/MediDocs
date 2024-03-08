@@ -37,7 +37,7 @@ class MedicalRecordViewSet(viewsets.ModelViewSet):
 class DoctorViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.DoctorSerializer
     queryset = models.Doctor.objects.all().order_by("id")
-    permission_classes = [permissions.DoctorPermission]
+    # permission_classes = [permissions.DoctorPermission]
 
 
 class NurseViewSet(viewsets.ReadOnlyModelViewSet):

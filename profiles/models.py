@@ -97,6 +97,7 @@ class Location(models.Model):
         return self.name
 
 
+
 class Doctor(models.Model):
     name = models.OneToOneField(acc_models.CustomUser, on_delete=models.CASCADE)
     hospital = models.ForeignKey(HospitalProfile, on_delete=models.CASCADE)

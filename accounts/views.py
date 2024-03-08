@@ -1,16 +1,16 @@
-from django.contrib.auth import get_user_model
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from .serializers import UserSerializer
+from .models import CustomUser
+from .serializers import UserSerializer
 
-User = get_user_model()
 
 
 class CustomUserCreateView(generics.CreateAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
     permission_classes = [permissions.AllowAny]
 
@@ -24,7 +24,7 @@ class CustomUserCreateView(generics.CreateAPIView):
         )
 
     def perform_create(self, serializer):
-        User.objects.create_user(**serializer.validated_data)
+        CustomUser.objects.create_user(**serializer.validated_data)
 
 
 class CustomUserLoginView(APIView):
@@ -34,7 +34,7 @@ class CustomUserLoginView(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
 
-        user = User.objects.filter(username=username).first()
+        user = CustomUser.objects.filter(username=username).first()
 
         if user and user.check_password(password):
             token, created = Token.objects.get_or_create(user=user)
@@ -46,5 +46,10 @@ class CustomUserLoginView(APIView):
 
 
 class CustomUserListView(generics.ListAPIView):
-    queryset = User.objects.all().order_by("id")
+    queryset = CustomUser.objects.all().order_by("id")
+    serializer_class = UserSerializer
+
+
+class UserViewSet(viewsets.ModelViewSet):
+    queryset = CustomUser.objects.all().order_by("id")
     serializer_class = UserSerializer

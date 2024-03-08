@@ -72,7 +72,13 @@ class DoctorSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Doctor
-        fields = "__all__"
+        fields = [
+            "url",
+            "user",
+            "id",
+            "name",
+            "hospital",
+        ]
 
 
 class NurseSerializer(serializers.HyperlinkedModelSerializer):
@@ -80,4 +86,10 @@ class NurseSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = models.Nurse
-        fields = "__all__"
+        fields = [
+            "url",
+            "user",
+            "id",
+            "name",
+            "hospital",
+        ]
