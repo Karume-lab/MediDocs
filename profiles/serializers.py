@@ -54,10 +54,8 @@ class HospitalService(serializers.HyperlinkedModelSerializer):
         fields = [
             "url",
             "id",
-            "name",
             "description",
             "category",
-            "price",
             "availability",
         ]
 
