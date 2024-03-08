@@ -16,7 +16,7 @@ class MedicalRecord(models.Model):
     symptoms = models.TextField(blank=True, null=True)
     diagnosis = models.TextField(blank=True, null=True)
     prescribed_medications = models.TextField(blank=True, null=True)
-    notes = models.TextField(blank=True, null=True, blank=True, null=True)
+    notes = models.TextField(blank=True, null=True)
     createdAt = models.DateTimeField(auto_now_add=True)
     updatedAt = models.DateTimeField(auto_now=True)
 

@@ -7,7 +7,7 @@ from accounts import models as acc_models
 class Profile(models.Model):
     user = models.OneToOneField(
         "accounts.CustomUser",
-        verbose_name=_("User profile"),
+        verbose_name=_("User Account"),
         related_name="profile",
         on_delete=models.CASCADE,
     )
@@ -91,7 +91,7 @@ class PatientProfile(models.Model):
     )
 
     def __str__(self):
-        return f"Patient Profile for {self.profile.user.first_name} {self.profile.user.last_name}"
+        return f"{self.user.first_name} {self.user.last_name}"
 
 
 class HospitalService(models.Model):
@@ -113,7 +113,7 @@ class HospitalService(models.Model):
     availability = models.BooleanField(default=True)
 
     def __str__(self):
-        return self.name
+        return self.category
 
 
 class Location(models.Model):
@@ -122,7 +122,7 @@ class Location(models.Model):
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
 
     def __str__(self):
-        return self.name
+        return self.address
 
 
 class Doctor(models.Model):

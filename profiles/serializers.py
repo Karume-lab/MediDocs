@@ -35,7 +35,7 @@ class HospitalProfile(serializers.HyperlinkedModelSerializer):
 class Location(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = models.Location
-        fields = ["url", "id", "name", "latitude", "longitude"]
+        fields = ["url", "id", "address", "latitude", "longitude"]
 
 
 class PatientProfile(serializers.HyperlinkedModelSerializer):

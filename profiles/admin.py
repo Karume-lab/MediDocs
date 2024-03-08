@@ -2,9 +2,18 @@ from django.contrib import admin
 from . import models
 
 
-class HospitalAdmin(admin.ModelAdmin):
+class HospitalProfileAdmin(admin.ModelAdmin):
     list_display = ("name", "location")
     list_filter = ("name",)
+
+
+class PatientProfileAdmin(admin.ModelAdmin):
+    list_display = (
+        "user",
+        "date_of_birth",
+        "location",
+    )
+    list_filter = ("user",)
 
 
 class DoctorAdmin(admin.ModelAdmin):
@@ -14,13 +23,13 @@ class DoctorAdmin(admin.ModelAdmin):
 
 
 class HospitalServiceAdmin(admin.ModelAdmin):
-    list_display = ("name", "category")
-    list_filter = ("name",)
+    list_display = ("category",)
+    list_filter = ("category",)
 
 
 class LocationAdmin(admin.ModelAdmin):
-    list_display = ("name", "address", "latitude", "longitude")
-    list_filter = ("name",)
+    list_display = ("address", "latitude", "longitude")
+    list_filter = ("address",)
 
 
 class NurseAdmin(admin.ModelAdmin):
@@ -33,10 +42,10 @@ class ProfileAdmin(admin.ModelAdmin):
     list_filter = ("user",)
 
 
-admin.site.register(models.PatientProfile)
 admin.site.register(models.Nurse, NurseAdmin)
+admin.site.register(models.PatientProfile, PatientProfileAdmin)
 admin.site.register(models.Location, LocationAdmin)
 admin.site.register(models.Doctor, DoctorAdmin)
 admin.site.register(models.Profile, ProfileAdmin)
-admin.site.register(models.HospitalProfile, HospitalAdmin)
+admin.site.register(models.HospitalProfile, HospitalProfileAdmin)
 admin.site.register(models.HospitalService, HospitalServiceAdmin)
