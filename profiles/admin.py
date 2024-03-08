@@ -3,8 +3,8 @@ from . import models
 
 
 class HospitalAdmin(admin.ModelAdmin):
-    list_display = ("owner", "name", "location")
-    list_filter = ("owner",)
+    list_display = ("name", "location")
+    list_filter = ("name",)
 
 
 class DoctorAdmin(admin.ModelAdmin):

@@ -5,12 +5,14 @@ from . import permissions
 from medical_records import serializers as med_serializers, models as med_models
 
 
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = models.Profile.objects.all().order_by("id")
+    serializer_class = serializers.Profile
+
+
 class HospitalProfileViewSet(viewsets.ModelViewSet):
     queryset = models.HospitalProfile.objects.all().order_by("id")
     serializer_class = serializers.HospitalProfile
-
-    def perform_create(self, serializer):
-        serializer.save(owner=self.request.user)
 
 
 class PatientProfileViewSet(viewsets.ModelViewSet):
@@ -35,12 +37,12 @@ class MedicalRecordViewSet(viewsets.ModelViewSet):
 
 
 class DoctorViewSet(viewsets.ModelViewSet):
-    serializer_class = serializers.DoctorSerializer
+    serializer_class = serializers.Doctor
     queryset = models.Doctor.objects.all().order_by("id")
-    # permission_classes = [permissions.DoctorPermission]
+    permission_classes = [permissions.DoctorPermission]
 
 
 class NurseViewSet(viewsets.ReadOnlyModelViewSet):
-    serializer_class = serializers.NurseSerializer
+    serializer_class = serializers.Nurse
     queryset = models.Nurse.objects.all().order_by("id")
     permission_classes = [permissions.NursePermission]
