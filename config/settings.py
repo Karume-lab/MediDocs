@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
     "rest_framework",
+    "rest_framework.authtoken",
     "phonenumber_field",
     "accounts.apps.AccountsConfig",
     "profiles.apps.ProfilesConfig",
@@ -144,6 +145,6 @@ REST_FRAMEWORK = {
     "PAGE_SIZE": 10,
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.AllowAny"],
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_simplejwt.authentication.JWTAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
     ],
 }
