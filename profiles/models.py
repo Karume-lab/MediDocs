@@ -14,19 +14,22 @@ class Profile(models.Model):
     hospital_profile = models.ForeignKey(
         "profiles.HospitalProfile",
         verbose_name=_("Hospital profile"),
-        related_name="profile",
+        related_name="profile_hospital",
         on_delete=models.CASCADE,
         blank=True,
-        null=True
+        null=True,
     )
     patient_profile = models.OneToOneField(
         "profiles.PatientProfile",
         verbose_name=_("Patient profile"),
-        related_name="profile",
+        related_name="profile_patient",
         on_delete=models.CASCADE,
         blank=True,
-        null=True
+        null=True,
     )
+
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 
 
 class HospitalProfile(models.Model):
@@ -44,18 +47,18 @@ class HospitalProfile(models.Model):
         related_name="hospital",
         on_delete=models.CASCADE,
     )
-    services = models.ForeignKey(
-        "profiles.HospitalService",
-        verbose_name=_("Services offered"),
-        related_name="hospital",
-        on_delete=models.CASCADE,
-    )
 
-    def __str__(self) -> str:
+    def __str__(self):
         return f"{self.name} - {self.location}"
 
 
 class PatientProfile(models.Model):
+    user = models.OneToOneField(
+        "accounts.CustomUser",
+        verbose_name=_("User Account"),
+        related_name="patient_account_profile",
+        on_delete=models.CASCADE,
+    )
     date_of_birth = models.DateField(_("Date of Birth"))
     phone_number = PhoneNumberField(region="KE")
     location = models.ForeignKey(
@@ -71,8 +74,8 @@ class PatientProfile(models.Model):
         _("Date the patient details were updated "), auto_now=True
     )
 
-    def __str__(self) -> str:
-        return f"{self.first_name} {self.last_name}"
+    def __str__(self):
+        return f"Patient Profile for {self.profile.user.first_name} {self.profile.user.last_name}"
 
 
 class HospitalService(models.Model):

@@ -39,24 +39,13 @@ class Location(serializers.HyperlinkedModelSerializer):
 
 
 class PatientProfile(serializers.HyperlinkedModelSerializer):
-    owner = serializers.PrimaryKeyRelatedField(
-        queryset=acc_models.CustomUser.objects.all()
-    )
-    location = serializers.PrimaryKeyRelatedField(
-        queryset=models.Location.objects.all()
-    )
-
     class Meta:
         model = models.PatientProfile
-        fields = [
-            "url",
-            "id",
-            "owner",
-            "date_of_birth",
-            "createdAt",
-            "phone_number",
-            "location",
-        ]
+        fields = "__all__"
+        extra_kwargs = {
+            "url": {"view_name": "patientprofile-detail", "lookup_field": "pk"},
+            "location": {"view_name": "location-detail", "lookup_field": "pk"},
+        }
 
 
 class HospitalService(serializers.HyperlinkedModelSerializer):

@@ -23,16 +23,20 @@ class LocationAdmin(admin.ModelAdmin):
     list_filter = ("name",)
 
 
-
 class NurseAdmin(admin.ModelAdmin):
     list_display = ("name", "hospital")
     list_filter = ("name",)
 
+
+class ProfileAdmin(admin.ModelAdmin):
+    list_display = ("user", "hospital_profile", "patient_profile")
+    list_filter = ("user",)
 
 
 admin.site.register(models.PatientProfile)
 admin.site.register(models.Nurse, NurseAdmin)
 admin.site.register(models.Location, LocationAdmin)
 admin.site.register(models.Doctor, DoctorAdmin)
+admin.site.register(models.Profile, ProfileAdmin)
 admin.site.register(models.HospitalProfile, HospitalAdmin)
 admin.site.register(models.HospitalService, HospitalServiceAdmin)
