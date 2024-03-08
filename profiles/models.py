@@ -20,7 +20,7 @@ class HospitalProfile(models.Model):
     )
     email = models.EmailField(_("Email address"), max_length=254)
     phone_number = PhoneNumberField(region="KE")
-    location = models.OneToOneField(
+    location = models.ForeignKey(
         "profiles.Location",
         verbose_name=_("Location of the hospital"),
         related_name="hospital",
@@ -97,9 +97,8 @@ class Location(models.Model):
         return self.name
 
 
-
 class Doctor(models.Model):
-    name = models.OneToOneField(acc_models.CustomUser, on_delete=models.CASCADE)
+    name = models.ForeignKey(acc_models.CustomUser, on_delete=models.CASCADE)
     hospital = models.ForeignKey(HospitalProfile, on_delete=models.CASCADE)
     createdAt = models.DateTimeField(_("Date the doctor was added "), auto_now_add=True)
     updatedAt = models.DateTimeField(
@@ -111,7 +110,7 @@ class Doctor(models.Model):
 
 
 class Nurse(models.Model):
-    name = models.OneToOneField(acc_models.CustomUser, on_delete=models.CASCADE)
+    name = models.ForeignKey(acc_models.CustomUser, on_delete=models.CASCADE)
     hospital = models.ForeignKey(HospitalProfile, on_delete=models.CASCADE)
     createdAt = models.DateTimeField(_("Date the nurse was added "), auto_now_add=True)
     updatedAt = models.DateTimeField(
