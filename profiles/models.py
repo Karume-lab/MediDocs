@@ -40,12 +40,18 @@ class HospitalProfile(models.Model):
     updatedAt = models.DateTimeField(
         _("Date the hospital details were updated "), auto_now=True
     )
-    phone_number = PhoneNumberField(region="KE")
+    phone_number = PhoneNumberField(
+        region="KE",
+        blank=True,
+        null=True,
+    )
     location = models.ForeignKey(
         "profiles.Location",
         verbose_name=_("Location of the hospital"),
         related_name="hospital",
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
 
     def __str__(self):
@@ -59,13 +65,23 @@ class PatientProfile(models.Model):
         related_name="patient_account_profile",
         on_delete=models.CASCADE,
     )
-    date_of_birth = models.DateField(_("Date of Birth"))
-    phone_number = PhoneNumberField(region="KE")
+    date_of_birth = models.DateField(
+        _("Date of Birth"),
+        blank=True,
+        null=True,
+    )
+    phone_number = PhoneNumberField(
+        region="KE",
+        blank=True,
+        null=True,
+    )
     location = models.ForeignKey(
         "profiles.Location",
         verbose_name=_("Location of the patient"),
         related_name="patient",
         on_delete=models.CASCADE,
+        blank=True,
+        null=True,
     )
     createdAt = models.DateTimeField(
         _("Date the patient was added "), auto_now_add=True
@@ -89,10 +105,11 @@ class HospitalService(models.Model):
         ("rehabilitation", "Rehabilitation"),
     ]
 
-    name = models.CharField(max_length=255)
-    description = models.TextField()
+    description = models.TextField(
+        blank=True,
+        null=True,
+    )
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
-    price = models.DecimalField(max_digits=10, decimal_places=2)
     availability = models.BooleanField(default=True)
 
     def __str__(self):
@@ -100,7 +117,6 @@ class HospitalService(models.Model):
 
 
 class Location(models.Model):
-    name = models.CharField(max_length=255)
     address = models.TextField()
     latitude = models.DecimalField(max_digits=9, decimal_places=6)
     longitude = models.DecimalField(max_digits=9, decimal_places=6)
