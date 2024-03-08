@@ -4,6 +4,11 @@ from phonenumber_field.modelfields import PhoneNumberField
 from accounts import models as acc_models
 
 
+class Profile(models.Model):
+    user = models.OneToOneField("accounts.CustomUser", verbose_name=_("User profile"), related_name="profile",on_delete=models.CASCADE)
+    hospital_profile = models.ForeignKey("profiles.HospitalProfile", verbose_name=_("Hospital profile"), on_delete=models.CASCADE)
+    hospital_profile = models.OneToOneField("profiles.PatientProfile", verbose_name=_("Patient profile"), on_delete=models.CASCADE)
+
 class HospitalProfile(models.Model):
     owner = models.ForeignKey(
         "accounts.CustomUser",
@@ -49,7 +54,7 @@ class PatientProfile(models.Model):
     date_of_birth = models.DateField(_("Date of Birth"))
     phone_number = PhoneNumberField(region="KE")
     email = models.EmailField(_("Email address"), max_length=254)
-    location = models.OneToOneField(
+    location = models.ForeignKey(
         "profiles.Location",
         verbose_name=_("Location of the patient"),
         related_name="patient",
