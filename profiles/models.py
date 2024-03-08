@@ -17,7 +17,7 @@ class Profile(models.Model):
         related_name="profile",
         on_delete=models.CASCADE,
         blank=True,
-        null=True,
+        null=True
     )
     patient_profile = models.OneToOneField(
         "profiles.PatientProfile",
@@ -25,7 +25,7 @@ class Profile(models.Model):
         related_name="profile",
         on_delete=models.CASCADE,
         blank=True,
-        null=True,
+        null=True
     )
 
 
