@@ -21,4 +21,4 @@ class MedicalRecord(models.Model):
     updatedAt = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f"Medical Record for {self.patient.first_name} {self.patient.first_name} - {self.created_at} at {self.hospital}"
+        return f"{self.patient.user.first_name} {self.patient.user.first_name} - {self.created_at}"
