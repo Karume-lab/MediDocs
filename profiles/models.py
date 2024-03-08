@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 from phonenumber_field.modelfields import PhoneNumberField
+from accounts import models as acc_models
 
 
 class HospitalProfile(models.Model):
@@ -26,7 +27,7 @@ class HospitalProfile(models.Model):
         on_delete=models.CASCADE,
     )
     services = models.ForeignKey(
-        "profiles.HospitalProfile",
+        "profiles.HospitalService",
         verbose_name=_("Services offered"),
         related_name="hospital",
         on_delete=models.CASCADE,
@@ -94,3 +95,27 @@ class Location(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Doctor(models.Model):
+    name = models.OneToOneField(acc_models.CustomUser, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(HospitalProfile, on_delete=models.CASCADE)
+    createdAt = models.DateTimeField(_("Date the doctor was added "), auto_now_add=True)
+    updatedAt = models.DateTimeField(
+        _("Date the doctor details were updated "), auto_now=True
+    )
+
+    def __str__(self):
+        return f"{self.name.first_name} {self.name.last_name}"
+
+
+class Nurse(models.Model):
+    name = models.OneToOneField(acc_models.CustomUser, on_delete=models.CASCADE)
+    hospital = models.ForeignKey(HospitalProfile, on_delete=models.CASCADE)
+    createdAt = models.DateTimeField(_("Date the nurse was added "), auto_now_add=True)
+    updatedAt = models.DateTimeField(
+        _("Date the nurse details were updated "), auto_now=True
+    )
+
+    def __str__(self):
+        return f"{self.name.first_name} {self.name.last_name}"

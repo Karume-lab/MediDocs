@@ -66,3 +66,18 @@ class HospitalService(serializers.HyperlinkedModelSerializer):
             "availability",
         ]
 
+
+class DoctorSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = models.Doctor
+        fields = "__all__"
+
+
+class NurseSerializer(serializers.HyperlinkedModelSerializer):
+    user = serializers.PrimaryKeyRelatedField(read_only=True)
+
+    class Meta:
+        model = models.Nurse
+        fields = "__all__"

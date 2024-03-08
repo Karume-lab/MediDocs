@@ -8,6 +8,8 @@ router.register(r"locations", views.LocationViewSet)
 router.register(r"hospital-profiles", views.HospitalProfileViewSet)
 router.register(r"patient-profiles", views.PatientProfileViewSet)
 router.register(r"hospital-services", views.HospitalServiceViewSet)
+router.register(r"doctors", views.DoctorViewSet)
+router.register(r"nurses", views.NurseViewSet)
 
 urlpatterns = [
     path("", include(router.urls)),

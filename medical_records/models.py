@@ -13,8 +13,8 @@ class MedicalRecord(models.Model):
     diagnosis = models.TextField()
     prescribed_medications = models.TextField()
     notes = models.TextField(blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    createdAt = models.DateTimeField(auto_now_add=True)
+    updatedAt = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"Medical Record for {self.patient.first_name} {self.patient.first_name} - {self.created_at} at {self.hospital}"
